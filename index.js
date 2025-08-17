@@ -2,9 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const sequelize = require("./src/config/db");
-const authRoutes = require("./src/routes/authRoutes");
-const healthProfileRoutes = require("./src/routes/userHealthProfileRoutes");
-const chatRoutes = require("./src/routes/chatRoutes");
 const otpRoutes = require('./src/routes/otpRoutes');
 const { SERVER_PORT } = require("./src/config/allEnv");
 
@@ -20,9 +17,6 @@ app.use(express.json());
 
 app.get("/", (req, res) => res.json({ message: "It's working!" }));
 
-app.use("/api/auth", authRoutes);
-app.use("/api/healthProfile", healthProfileRoutes);
-app.use("/api/chat", chatRoutes);
 app.use('/api/otp', otpRoutes);
 
 const startServer = async () => {
