@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.get("/", (req, res) => res.json({ message: "It's working!" }));
+app.get("/", (_, res) => res.json({ message: "It's working!" }));
 app.use("/api/otp", otpRoutes);
 
 const startServer = async () => {
