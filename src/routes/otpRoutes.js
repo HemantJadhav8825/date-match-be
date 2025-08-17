@@ -10,24 +10,19 @@ const authToken = TWILIO_AUTH;
 const twilioClient = twilio(accountSid, authToken);
 
 router.post('/send', async (req, res) => {
-    const { phone } = req.body;
-    if (!phone) return res.status(400).json({ message: 'Phone number required' });
-    console.log({
-      accountSid,
-      authToken,
-      TWILIO_SERVICE
-    })
-    try {
-        const number = "+91" + phone;
-        const verification = await twilioClient.verify.v2.services(TWILIO_SERVICE)
-            .verifications
-            .create({ to: number, channel: 'sms' });
+  const { phone } = req.body;
+  if (!phone) return res.status(400).json({ message: 'Phone number required' });
+  try {
+    const number = "+91" + phone;
+    await twilioClient.verify.v2.services(TWILIO_SERVICE)
+      .verifications
+      .create({ to: number, channel: 'sms' });
 
-        res.json({ success: true });
-    } catch (err) {
-        console.log({ err })
-        res.status(500).json({ error: err.message });
-    }
+    res.json({ success: true });
+  } catch (err) {
+    console.log({ err })
+    res.status(500).json({ error: err.message });
+  }
 });
 
 router.post('/verify', async (req, res) => {
