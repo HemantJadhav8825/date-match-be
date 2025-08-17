@@ -12,7 +12,11 @@ const twilioClient = twilio(accountSid, authToken);
 router.post('/send', async (req, res) => {
     const { phone } = req.body;
     if (!phone) return res.status(400).json({ message: 'Phone number required' });
-
+    console.log({
+      accountSid,
+      authToken,
+      TWILIO_SERVICE
+    })
     try {
         const number = "+91" + phone;
         const verification = await twilioClient.verify.v2.services(TWILIO_SERVICE)
